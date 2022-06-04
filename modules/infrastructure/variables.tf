@@ -4,6 +4,11 @@ variable "internetCIDR" {
 }
 variable "vpcCIDR" {
   description = "Enter a valid CIDR block for the VPC"
+
+  validation {
+    condition     = can(cidrhost(var.subnet1.cidr, 32))
+    error_message = "Must be a valid IPv4 CIDR."
+  }
 }
 
 variable "allocatePublicIP" {
