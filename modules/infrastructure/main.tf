@@ -35,10 +35,19 @@ resource "aws_network_acl" "nacl" {
   tags = {
     Name = "Custom NACL"
   }
-  # 443 for load balancer https
+  # 80 for http
   ingress {
     protocol   = "tcp"
     rule_no    = 200
+    action     = "allow"
+    cidr_block = var.internetCIDR
+    from_port  = 80
+    to_port    = 80
+  }
+  # 443 for load balancer https
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 300
     action     = "allow"
     cidr_block = var.internetCIDR
     from_port  = 443
@@ -48,7 +57,7 @@ resource "aws_network_acl" "nacl" {
   #  ephemeral ports 
   ingress {
     protocol   = "tcp"
-    rule_no    = 300
+    rule_no    = 400
     action     = "allow"
     cidr_block = var.internetCIDR
     from_port  = 1024
