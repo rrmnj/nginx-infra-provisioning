@@ -28,19 +28,20 @@ module "infrastructure" {
   vpcCIDR = var.vpcCIDR # define a CIDR range for the VPC 
   subnet1 = var.subnet1 # define a cidr / az for subnet 1
   subnet2 = var.subnet2 # define a cidr / az for subnet 2
-  
+
   /* -- Optional Parameters -- */
   # allocatePublicIP = #  bool - allocate a public IP to each EC2 created? Default is true. 
 }
 
-module "microservice" {
+module "nginx-microservice" {
   source = "./modules/nginx-server"
   /* -- Mandatory Parameters -- */
-  vpc     = module.infrastructure.vpc-id
-  subnet1 = module.infrastructure.subnet1-id
-  subnet2 = module.infrastructure.subnet2-id
-  keypair = var.keypair
+  vpc            = module.infrastructure.vpc-id
+  subnet1        = module.infrastructure.subnet1-id
+  subnet2        = module.infrastructure.subnet2-id
+  keypair        = var.keypair
   certificateARN = ""
+
   /* -- Optional Parameters -- */
   maxSize         = "2"
   minSize         = "1"
