@@ -31,3 +31,18 @@ module "infrastructure" {
   /* -- Optional Parameters -- */
   # allocatePublicIP = #  bool - allocate a public IP to each EC2 created? Default is true. 
 }
+
+module "microservice" {
+  source = "./modules/nginx-server"
+  /* -- Mandatory Parameters -- */
+  vpc     = module.infrastructure.vpc-id
+  subnet1 = module.infrastructure.subnet1-id
+  subnet2 = module.infrastructure.subnet2-id
+  keypair = var.keypair
+  /* -- Optional Parameters -- */
+  maxSize         = "2"
+  minSize         = "1"
+  desiredCapacity = "2"
+  ami             = var.ami          # default Amazon Linux 2
+  instanceType    = var.instanceType # default t2.micro to stay in free tier
+}
