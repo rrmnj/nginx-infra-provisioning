@@ -56,3 +56,7 @@ variable "maxSize" {
     error_message = "Maximum node scaling cannot exceed 10 (to avoid costly accidents!)."
   }
 }
+
+variable "certificateARN" {
+  description = "Please enter the ARN of a valid SSL certificate that has been uploaded to ACM."
+}

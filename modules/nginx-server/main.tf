@@ -120,8 +120,9 @@ resource "aws_lb_target_group" "nginx-tg" {
 ## - HTTPS listener with ssl  certificate -- ##
 resource "aws_lb_listener" "alb-listener-https" {
   load_balancer_arn = aws_lb.nginx-alb.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
+  certificate_arn   = var.certificateARN
 
   default_action {
     type             = "forward"
