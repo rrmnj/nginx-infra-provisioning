@@ -47,6 +47,7 @@ resource "aws_launch_template" "nginx-launch-template" {
   instance_type          = var.instanceType
   key_name               = var.keypair
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
+  user_data              = filebase64("${path.module}/bootstrap.sh")
 }
 
 ## - Autoscaling Group for nginx server -- ##
