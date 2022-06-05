@@ -9,7 +9,7 @@
 # Architectural Considerations 
 1) Under normal circumstances, of course, this application would be deployed via ECS which handles the load balancing, autoscaling, and provisioning of the Docker image out of the box. However this would have taken me out of Free Tier - for the purposes of this POC, this entire environment fits under the free tier constraints. 
 
-** Why ECS and not EKS? For this brief specifically, the application is is a standalone, stateless, front end application only. EKS would be an overengineereed solution for something that doesn't communicate with other microservices that would utilise sidecars, service mesh, replicas etc.  
+*Why ECS and not EKS? For this brief specifically, the application is is a standalone, stateless, front end application only. EKS would be an overengineereed solution for something that doesn't communicate with other microservices that would utilise sidecars, service mesh, replicas etc.*
 
 # Module Information 
 This repo contains 2 separate modules that can be run indepentenly, 'infrastructure' & 'nginx-server'. This means if you already have your own VPC setup in AWS, you can run the nginx-server in there - you just need to pass in the VPC and Subnet IDs.
@@ -55,10 +55,10 @@ module "nginx-microservice" {
   instanceType    = var.instanceType # default t2.micro to stay in free tier
 ```
 
-1) cd into root directory (nginx-terraform/)
-2) run `terraform init` to pull packages
-3) run `terraform apply` to build the server (after supplying all the mandatory paramaters either directly through the module or in the terraform.tfvars file) 
-4) Once all the components are up, retrieve the DNS address of the ALB that was built and put it in your browser:  (looks something like: https://nginx-alb-xxxxxx.xxxxxx.elb.amazonaws.com/)
+2) cd into root directory (nginx-terraform/)
+3) run `terraform init` to pull packages
+4) run `terraform apply` to build the server (after supplying all the mandatory paramaters either directly through the module or in the terraform.tfvars file) 
+5) Once all the components are up, retrieve the DNS address of the ALB that was built and put it in your browser:  (looks something like: https://nginx-alb-xxxxxx.xxxxxx.elb.amazonaws.com/)
 
 ###### To run the nginx-server module WITH the infrastructure module: 
 1) in the main.tf file, ensure the following modules are present: 
@@ -95,12 +95,12 @@ module "nginx-microservice" {
 3) *Note that the vpc and subnet variables are passed through via the outputs of the infrastructure module.*
 4) run `terraform init` to pull packages
 5) run `terraform apply` to build the infrastructure and server (after supplying all the mandatory paramaters either directly through the module or in the terraform.tfvars file) - terraform will automatically build the pieces in order.
-5) Once all the components are up, retrieve the DNS address of the ALB that was built and put it in your browser:  (looks something like: https://nginx-alb-xxxxxx.xxxxxx.elb.amazonaws.com/)
+6) Once all the components are up, retrieve the DNS address of the ALB that was built and put it in your browser:  (looks something like: https://nginx-alb-xxxxxx.xxxxxx.elb.amazonaws.com/)
 
 
 # PARAMETERS used to test with -- 
 *Note, most of these parameteters I defined the terraform.tfvars file*
-
+```
 var.keypair
   Value: my-keypair
 
@@ -123,3 +123,4 @@ var.subnet2
     az   = "eu-west-1b"}
 }
 certificateARN: arn:aws:acm:eu-west-1:**REDACTED***
+```
