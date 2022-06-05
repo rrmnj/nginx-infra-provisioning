@@ -5,7 +5,7 @@ variable "region" {
   default     = "eu-west-1"
 }
 variable "profile" {
-  description = "aws profile for CLI (where you store access / secret keys)"
+  description = "AWS profile for CLI (where you store access / secret keys)"
   default     = "default"
 }
 /* ------- */
@@ -30,6 +30,7 @@ variable "subnet2" {
   })
   description = "Enter the 2nd subnet's CIDR and AZ range - default is 10.0.1.0/24, eu-west-1a"
 }
+/* ------- */
 /* Microservice Variables */
 variable "ami" {
   default     = "ami-0c1bc246476a5572b"
@@ -43,3 +44,7 @@ variable "keypair" {
   default     = "private"
   description = "Keypair to SSH into nginx server - please note, port 22 is blocked by default - this would need to be open in the microservice SG."
 }
+variable "certificateARN" {
+  description = "Please enter the ARN of a valid SSL certificate that has been uploaded to ACM."
+}
+/* ------- */

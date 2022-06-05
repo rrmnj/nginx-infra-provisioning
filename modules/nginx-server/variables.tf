@@ -15,18 +15,32 @@ variable "instanceType" {
   type        = string
   description = "Instance type for microservice - default is t2.micro to stay in AWS free tier."
 }
+
 variable "vpc" {
   type        = string
   description = "Please enter the VPC ID where the microservice will be deployed"
+
+  validation {
+    condition     = can(regex("^vpc-", var.vpc))
+    error_message = "Must be a valid AWS VPC ID."
+  }
 }
 variable "subnet1" {
   type        = string
   description = "Please enter the Subnet 1 ID"
 
+  validation {
+    condition     = can(regex("^subnet-", var.subnet1))
+    error_message = "Must be a valid AWS subnet ID."
+  }
 }
 variable "subnet2" {
   type        = string
   description = "Please enter the Subnet 2 ID"
+  validation {
+    condition     = can(regex("^subnet-", var.subnet2))
+    error_message = "Must be a valid AWS subnet ID."
+  }
 }
 
 variable "internetCIDR" {
@@ -59,4 +73,9 @@ variable "maxSize" {
 
 variable "certificateARN" {
   description = "Please enter the ARN of a valid SSL certificate that has been uploaded to ACM."
+
+  validation {
+    condition     = can(regex("^arn:aws:acm:", var.certificateARN))
+    error_message = "Must be a valid AWS ACM ARN."
+  }
 }

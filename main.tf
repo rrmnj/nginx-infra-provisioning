@@ -40,7 +40,7 @@ module "nginx-microservice" {
   subnet1        = module.infrastructure.subnet1-id
   subnet2        = module.infrastructure.subnet2-id
   keypair        = var.keypair
-  certificateARN = ""
+  certificateARN = var.certificateARN
 
   /* -- Optional Parameters -- */
   maxSize         = "2"
